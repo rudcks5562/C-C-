@@ -217,6 +217,7 @@ printf("%d %d %d \n",*(p+0),*(p+1),*(p+2));
 
 </div>
 </details>
+
 ---
 
 <details>
@@ -290,6 +291,67 @@ printf("%d %d %d \n",*(p-1),*p,*(p+1));
 </div>
 </details>
 
+---
+
+
+<details>
+<summary> 예제 4-10</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[3] = {10,20,30};
+int* p= NULL;
+
+p=array;
+
+*p=10;
+printf("%d %d %d\n ",p[0],p[1],p[2]);
+*(p+1)=20;
+printf("%d %d %d\n ",p[0],p[1],p[2]);
+// p=array 고정하고 연산진행 
+
+}
+
+// 본 예제는 고정된 주소의 가감산을 활용한 배열접근 방법에 대한 예제임. *연산자를 쓰든, []를 쓰든 자유 
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-11</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[3] = {10,20,30};
+int* p= NULL;
+
+p=array;
+
+*p=10;
+printf("%d %d %d\n ",p[0],p[1],p[2]);
+p=p+1;
+*p=20;
+printf("%d %d %d\n ",p[0],p[1],p[2]);
+// p=array 고정하고 연산진행 
+
+}
+
+// 본 예제는 변화하는 주소의 가감산을 활용한 배열접근 방법에 대한 예제임. *연산자를 쓰든, []를 쓰든 자유 
+```
+
+</div>
+</details>
 
 
 

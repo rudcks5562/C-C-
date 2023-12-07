@@ -164,8 +164,12 @@ for(i=0;i<3;i++){
 printf("%d %d %d \n",*(p+i),*&p[i],p[i]);
 
 }
+for(i=0;i<3;i++){
 
+printf("%d %d %d \n",*(array+i),*&array[i],array[i]);
 
+}
+// 같은 결과
 
 
 }
@@ -177,8 +181,114 @@ printf("%d %d %d \n",*(p+i),*&p[i],p[i]);
 </details>
 
 
+---
+<details>
+<summary> 예제 4-7</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[3] = {10,20,30};
+int i=0;
+int* p= NULL;
+
+p=array;
+
+printf("%d %d %d \n",array[0],array[1],array[2]);
+printf("%d %d %d \n",*(array+0),*(array+1),*(array+2));
+printf("%d %d %d \n",p[0],p[1],p[2]);
+printf("%d %d %d \n",*(p+0),*(p+1),*(p+2));
 
 
+// 같은 결과 
+
+
+
+
+
+
+}
+
+// 본 예제는 8(4) 바이트 포인터 변수로 12바이트 공간의 배열에 모두 접근 가능함을 보이는 예제임.
+```
+
+</div>
+</details>
+---
+
+<details>
+<summary> 예제 4-8</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[3] = {10,20,30};
+int i=0;
+int* p= NULL;
+
+p=array;
+printf("%d %d %d \n",p[0],p[1],p[2]);
+printf("%d %d %d \n",*p,*(p+1),*(p+2));
+p= array+1;
+printf("%d %d %d \n",p[-1],p[0],p[1]);
+printf("%d %d %d \n",*(p-1),*p,*(p+1));
+
+// 같은 결과 
+
+
+
+
+
+
+}
+
+// 본 예제는 주소의 가감산을 활용한 배열접근 방법에 대한 예제임. *연산자를 쓰든, []를 쓰든 자유 
+```
+
+</div>
+</details>
+
+---
+<details>
+<summary> 예제 4-9</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[3] = {10,20,30};
+int i=0;
+int* p= NULL;
+
+p=array;
+printf("%d %d %d \n",p[0],p[1],p[2]);
+printf("%d %d %d \n",*p,*(p+1),*(p+2));
+p= p+1;
+printf("%d %d %d \n",p[-1],p[0],p[1]);
+printf("%d %d %d \n",*(p-1),*p,*(p+1));
+
+// 같은 결과 
+
+
+
+
+
+
+}
+
+// 본 예제는 주소의 가감산을 활용한 배열접근 방법에 대한 예제임. *연산자를 쓰든, []를 쓰든 자유 + p에 대한 연산이든 array에 대한 연산이든 주소값의 가감에 대한 결과는 동일
+```
+
+</div>
+</details>
 
 
 

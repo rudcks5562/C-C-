@@ -363,4 +363,184 @@ return 0;
 </div>
 </details>
 
+---
+
+<details>
+<summary> 예제 4-24</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char array[]= "acac";
+// %c %d 로 출력하는 코드 생략-> 각각 소문자 아스키코드 출력 
+
+
+return 0;
+}
+// 문자열배열은 ""로 넣는다.
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-25</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char array[]= {'A','B','C','D','\0'};// 널문자 관련 예제인듯하다.
+
+
+
+
+return 0;
+}
+// 널문자는 항상 뒤에 있지만 보이지 않는다. -> %d 로 출력시 0 출력. ~ 널문자 마지막에 입력해 놓으면 문자열로 인식됨.
+
+```
+
+</div>
+</details>
+
+---
+//4-26예제는 %s 사용법이므로 pass(굳이 쓴다면 시작주소를 기반으로 문자열 출력한다쯤?)
+
+---
+
+4-27예제는 널문자의 유무로 문자배열과 문자열 배열에 대한 %s연산자의 차이점을 보임.
+4-28 예제는 문자열은 수정가능함을 보임(값의 변경으로 변경함 arr[0]='Z')
+
+// %s 는 종료문자 널문자를 만날때까지 출력하는 연산자이다.
+
+---
+<details>
+<summary> 예제 4-30</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char array[]="ABCD";// 문자열 저장.
+char* p= "ABCD";// 문자열 상수시작주소 부여 
+
+p[0]='X';;// 상수는 불변
+array[0]='X';// 변경가능
+
+p=array;// 상수말고 배열주소 담음.
+array=array+1;// 상수이므로 변경 안됨. 
+
+return 0;
+}
+// 포인터변수로 문자배열 접근 가능 
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-31</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char* p =&"ABCD";
+printf("%x \n",P);// 시작주소 출력 
+// p+4..까지
+
+
+
+return 0;
+}
+// 상수의 메모리상의 시작주소 출력 
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-32</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char* p="good morning";
+char* q="c-language";
+char* array[2]={"gm","c-l"};
+
+
+printf("%s \n",p);
+printf("%s \n",q);
+
+printf("%s \n",array[0]);
+printf("%s \n",array[1]);
+
+printf("%s \n",p+5);
+printf("%s \n",p+2);
+
+printf("%s \n",array[0]+5);
+printf("%s \n",array[1]+2);
+
+return 0;
+}
+// 문자열 상수의 시작주소를 저장하는 포인터배열을 활용.
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-34,35</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char* const p=&a;// p=&a에 대한 상수화 -> 다른주소 저장 금지(주소고정)
+const char* p;// 포인터변수의 상수화 -> 값의 변경 금지(값 고정)
+const char* const p=&a;-> 둘다 
+//안전성과 읽기속성 부여 
+
+
+
+return 0;
+}
+// 문자열 상수의 시작주소를 저장하는 포인터배열을 활용.
+
+```
+
+</div>
+</details>
+
+포인터 파트 4 끝
+파트 5 포인터와 함수 그리고 void형 포인터 단원 시작.
+
 

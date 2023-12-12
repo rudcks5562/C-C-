@@ -107,11 +107,11 @@ int (*p) [3]=NULL;// 배열 포인터 변수
 p= array;
 
 
-printf("%x %x %x",&array[0][0],&array[0][1],&array[0][2]);// array[][]= 
+printf("%x %x %x",&array[0][0],&array[0][1],&array[0][2]);// array[][]= value 
 printf("%x %x %x",&array[1][0],&array[1][1],&array[1][2]);
 
 
-printf("%x %x %x",&p[0][0],&p[0][1],&p[0][2]);
+printf("%x %x %x",&p[0][0],&p[0][1],&p[0][2]);// address
 printf("%x %x %x",&p[1][0],&p[1][1],&p[1][2]);
 
 
@@ -130,3 +130,237 @@ printf("%x %x %x",*&p[1][0],*&p[1][1],*&p[1][2]);
 
 </div>
 </details>
+
+---
+
+
+<details>
+<summary> 예제 4-18</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+int array[2][3] = {10,20,30,40,50,60};
+int (*p) [3]=NULL;// 배열 포인터 변수
+p= array;
+
+
+printf("%x %x %x",&p[0][0],&p[0][1],&p[0][2]); // 2차원 배열 참조-> 값을 품는 주소값
+printf("%x %x %x",&p[1][0],&p[1][1],&p[1][2]);
+
+printf("%x %x \n",p,p+1);// 주소값(시작주소 에서의 이동)
+printf("%x %x \n",p[0],p[1]);// 주소값 p[N]= *(p+N)
+printf("%x %x\n",*(p+0),*p(p+1));   상등 
+
+printf("%d %d %d \n",*p(p[0]+0),*p(p[0]+1),*p(p[0]+2));
+printf("%d %d %d \n",*p(p[1]+0),*p(p[1]+1),*p(p[1]+2));
+
+printf("%d %d %d \n",*p(*(p+0)+0),*p(*(p+0)+1),*p(*(p+0)+2));
+printf("%d %d %d \n",*p(*(p+1)+0),*p(*(p+1)+1),*p(*(p+1)+2));
+
+// p[0]= *(p+0)
+
+return 0;
+
+}
+// 2차원 배열을 참조 하는 방법에대한 탐구 예제. 
+
+```
+
+</div>
+</details>
+
+---
+
+
+<details>
+<summary> 예제 4-19</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+
+int a=10,b=20;,c=30;
+int* ap=null;
+int* bp=null;
+int* cp= null;// 포인터 변수 개수가 많다.. 일일히..
+
+ap=&a;
+bp=&b;
+cp=&c;
+
+printf("%d %d %d",a,b,c);
+printf("%d %d %d",*ap,*bp,*cp);// value 
+
+printf("%x %x %x",&a,&b,&c);
+printf("%x %x %x",ap,bp,cp);// 저장된 주소
+printf("%x %x %x",&ap,&bp,&cp);// 변수의 주소 
+
+return 0;
+}
+// 배열포인터변수에 이어서 포인터 배열의 선언 (두개는 다름) 배열포인터변수는 배열 형태가 잡혀지는 변수이고 포인터 배열은 주소를 저장하는 연속적인 저장소인 배열이다.  
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-20</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+
+int a=10,b=20;,c=30;
+//int* ap=null;
+//int* bp=null;
+//int* cp= null;// 포인터 변수 개수가 많다.. 일일히..(4-19 예제임)
+
+int * ap[3]= {null,null,null};
+
+ap[0]=&a;
+ap[1]=&b;
+ap[2]=&c;
+
+
+printf("%x %x %x \n",&a,&b,&c);
+printf("%x %x %x \n",ap[0],ap[1],ap[2]);
+printf("%x %x %x \n",*(ap+0),*(ap+1),*(ap+2));
+
+//밑에는 값 출력하는 코드 *&상쇄되는거 생략
+printf("%d %d %d \n",**(ap+0),**(ap+1),**(ap+2));
+
+
+
+
+return 0;
+}
+// 포인터배열을 통해서 초기화 및 참조를 하는 예제. 
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-21</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+
+int a=10,b=20;,c=30;
+
+int * ap[3]= {null,null,null};// 포인터 배열 
+
+ap[0]=&a;
+ap[1]=&b;
+ap[2]=&c;
+
+int array[2][3]={10,20,30,40,50,60};
+int (*p) [3]=null;// 배열포인터 
+
+
+printf("%x %x %x \n",&a,&b,&c);
+printf("%x %x %x \n",ap[0],ap[1],ap[2]);
+printf("%x %x %x \n",*(ap+0),*(ap+1),*(ap+2));
+
+printf("%x %x %x \n",&a,&b,&c);
+printf("%x %x %x \n",&a,&b,&c);
+printf("%x %x %x \n",&a,&b,&c);
+
+p=array;
+
+printf("%d %d %d \n",p[0][0],p[0][1],p[0][2]);
+printf("%d %d %d \n",p[1][0],p[1][1],p[1][2]);
+
+printf("%d %d %d \n",*(p[0]+0),*(p[0]+1),*(p[0]+2));
+printf("%d %d %d \n",*(p[1]+0),*(p[1]+1),*(p[1]+2));// *(*(p+0)+0)== *(p[0]+0)== p[0][0]
+
+printf("%d %d %d \n",*(*(p+0)+0),*(*(p+0)+0),*(*(p+0)+0);
+//생략~ 남은 좌표그냥 출력하는 코드임. 
+
+return 0;
+}
+// 배열포인터(특정 열단위 배열 주소 저장 가능 )와 포인터배열(주소 저장 가능 )의 차이점을 알아보는 예제. 
+
+```
+
+</div>
+</details>
+
+---
+<details>
+<summary> 예제 4-22</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char array[]= {'A','B','C','D'};
+
+printf("const char: %c %c %c %c",'A','B','C','D');
+
+printf("const char: %c %c %c %c",array[0],array[1],array[2],array[3]);
+
+// ... 변경후 다시 출력해보고 사이즈 측정하는 코드 생략.
+
+
+return 0;
+}
+// 문자배열 예제.
+
+```
+
+</div>
+</details>
+
+---
+
+<details>
+<summary> 예제 4-23</summary>
+<div markdown="1">
+
+```
+
+#include<stdio.h>
+int main(void){
+
+char array[]= {'A','B','C','D'};
+char* p= null;
+
+p=array;
+
+// p[0], *(p+0) 으로 출력해보는 코드 생략.
+
+
+
+return 0;
+}
+// 포인터변수로 문자배열 접근 가능 
+
+```
+
+</div>
+</details>
+
+

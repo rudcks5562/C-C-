@@ -3,7 +3,7 @@
 
 
 <details>
-<summary> 예제 N </summary>
+<summary> 예제 N(클릭하면 늘어난다!) </summary>
 <div markdown="1">
 
 ```

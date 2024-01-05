@@ -1,193 +1,162 @@
-23년 12월 7일 
-교재 C언어 본색 (박정민)을 참고하며 기록한 내용 
-컴파일러 : devc++(64비트 환경)
-포인터와 배열파트 부터 복습시작.~ 배열파트 끝나고 함수와 void포인터 파트 시작
+## 구조체 파트 진행
 
 <details>
-<summary> 예제 5-5 </summary>
+<summary> 예제1-1</summary>
 <div markdown="1">
 
 ```
 #include<stdio.h>
-int func(int* p);
 
-void main(){
+struct group{
+  int a;
+  double b;
 
-int array[2][4]={10,20,30,40,50,60,70,80};
-  func(array);
-return 0;
+};
 
-//주소의 의한 호출이 지역변수를 복사하는 과정을 거치지 않기 때문에 비교적 성능이 우수함.(데이터를 함수에 전달-> 구조체나 배열같은 것)
+int main(void){
 
-}
-int func(int* p){// 변수 a값을 i에 복사하는 값(메모리공간에 저장된 값)에의한 참조 
+  struct group g1;
 
-printf("%d %d \n",p[1],p[5]);// 출력됨. 포인터변수 p는 1차원 포인터변수이기 때문에 1차원배열처럼 접근할 수 있음.
-printf("%d %d" \n,p[0][1],p[1][1]);// error 왜냐하면 2차원배열처럼 접근 안됨-> 접근 가능케 하려면 포인터 변수 p를 배열 포인터로 변경하여 int (*p) [4]의 꼴로 변경해야한다.
+g1.a=10;
+g1.b=1.1234;
 
-
-}
-
-
-```
-
-</div>
-</details>
-
----
-
-
-<details>
-<summary> 예제 5-6,7 </summary>
-<div markdown="1">
-
-```
-#include<stdio.h>
-int* input();
-
-void main(){
-
-int * p= NULL;
-p=input();
-printf("%d \n",*p);
-
-
-
-
-}
-int* input(){// 변수 a값을 i에 복사하는 값(메모리공간에 저장된 값)에의한 참조 
-
-static int num1;
-scanf("%d",&num1);
-return &num1;
-
-}
-
-// 주소를 반환하는 함수를 사용하는 예제.. 배열이나 구조체를 반환할 때에도 주소값을 반환할 필요성이 있다.(성능을 위해)
-//지역변수 num1의 주소가 반환되서 경고가 뜬다. 이를 해결하기 위해서는 정적변수를 활용한다.(static)
-
-```
-
-</div>
-</details>
-
----
-
-<details>
-<summary> 예제 5-8,9</summary>
-<div markdown="1">
-
-```
-#include<stdio.h>
-int* func();
-
-void main(){
-
-int* p=NULL;
-p=func();
-
-  printf("%d\n",p[1]);
-  printf("%d\n",*(p+1));
-
-
+printf("g1.a = %d \n",g1.a);
+printf("g1.b= %lf\n",g1.b);
 
 return 0;
 
-
-
-}
-int* func(){
-
-int array[]={10,20,30,40};// static add! -> no error
- return array;
-
 }
 
+// group이라는 구조체를 정의하여 구조체 변수 g1을 통해 멤버변수 a와 b에 접근하여 데이터를 저장 및 출력하는 예제.
 
 ```
-//배열 또한 지역변수에 선언되어 메모리상에서 함수가 종료되면 사라지게된다 하지만 static을사용해 정적변수로 만들면 메모리에 계속 존재하기 때문에 사용 가능하다.
+
 </div>
 </details>
 
+---
+
+
+<details>
+<summary> 예제1-2,3,4</summary>
+<div markdown="1">
+
+```
+#include<stdio.h>
+
+struct group{
+  int a;
+  double b;
+
+};
+
+int main(void){
+
+  struct group g1;
+
+  scanf("%d %lf,&g1.a,&g1.b");// scanf 를 통한 입력
+
+struct group g2={10,20.0};// 기존 예제는 점에대한 예제(x,y)이나 예제를 묶기위해 응용하여 작성한 부분임. 교재와 다른 부분.
+// 구조체 변수 초기화 방법.
+// 단 초기화는 괄호를 사용할 경우 선언과 동시에 사용해줘야하며 그 외에는  따로 재정의 해주는 방법이 존재함.
+// struct group g3;
+// g3={1,2.0}-> error!
+// g3.a=1 -> clear
+
+return 0;
+
+}
+
+// group이라는 구조체를 정의하여 구조체 변수 g1을 통해 멤버변수 a와 b에 접근하여 데이터를 저장 및 출력하는 예제.
+
+```
+
+</div>
+</details>
 
 
 ---
 
 
 <details>
-<summary> 예제 5-10 </summary>
+<summary> 예제1-5,6</summary>
 <div markdown="1">
 
 ```
 #include<stdio.h>
-char* string1(void);
-char* string2(void);
 
-void main(){
+struct point{
+  int x;
+  int y;
 
-char* p1=NULL;
-char* p2=NULL;
+};
 
-p1=string1();
-p2=string2();
+int main(void){
 
-printf("%s \n",p1);
-printf("%s \n",p2);
-
-return ;
+  struct point p1={10,20};
+  struct point p2= {0,0};
 
 
-}
+p2=p1;// 구조체 변수의 복사.
 
-char* string1(void){
-  static char str[]="Good";
-  return str;
-}
-char* string2(void){
-  static char str[]="morning";
-return str;
+printf("%d %d",p1.x,p1.y);
+printf("%d %d",p2.x,p2.y);
+
+// 만약 구조체 변수간의 덧셈이나 뺄셈이 가능할까? -> error!! 오직 대입연산만 가능 사용자정의 자료형이기 때문이다. 
+
+
+return 0;
 
 }
-
-
-// 문자열의 시작주소를 받아와서 출력하는 예제. 
-// 같은 이름의 static변수를 써놓는다면 ? -> 일단 구글링을 해본 결과 데이터영역에 올라가지기만한다.. 라고 적혀있다.-> gpt선생께 물어본 결과 다른 함수 스택프레임에 같은 이름으로 존재한다..(독립된 영역을 각기 차지한다)로 결론..
 
 
 ```
 
 </div>
 </details>
+
 
 ---
 
 <details>
-<summary> 5-14,15</summary>
+<summary> 예제1-7,8</summary>
 <div markdown="1">
 
 ```
 #include<stdio.h>
-int main (void){
 
-char c=3;
-double d=3.1;
+struct score{
+  double math;
+  double english;
+  double total;
 
-void* vx= NULL;
+};
+struct student{
 
-vx=&c;
-printf("%x \n",vx);
-// printf("%d \n",*vx); ~ error
-printf("%d \n",*(char*)vx);// 강제 형변환을 통해 값을 출력할 수 있다. //변경도 가능하다! *(char*)vx=5;
-
-vx=&d;
-printf("%x \n",vx);
-// printf("%lf \n",*vx); ~ error
-
-// void형 포인터는 모든 자료형의 주소를 저장할 수 있으나 값을 변경할 수 없다.
+int no;
+struct score s;
 
 }
 
 
+int main(void){
+
+struct student stu;
+stu.no=20101323;
+stu.s.math=90;
+stu.s.english=80;
+stu.s.total= stu.s.math+stu.s.english;
+// struct student stu= {20101323,{80,90,0}};  초기화방법2 ,단 대괄호를 생략하여도 순차적으로 멤버변수에 대입되어진다. 
+
+  printf("%d \n ",stu.no);
+  printf("%lf \n",stu.s.total);
+
+//중첩 구조체, 구조체 안에 구조체가 있는 형태의 예제이다. 
+
+
+return 0;
+
+}
 
 
 ```
@@ -199,7 +168,106 @@ printf("%x \n",vx);
 ---
 
 
-### 큰 2단원 끝!
+<details>
+<summary> 예제1-9</summary>
+<div markdown="1">
+
+```
+#include<stdio.h>
+
+typedef struct score{
+  double math;
+  double english;
+  double total;
+
+} SCORE;// typedef 사용법 1
+ struct student{
+
+int no;
+SCORE s;
+
+} ;
+
+typedef struct student STUDENT;// 사용법 2
+
+
+int main(void){
+
+STUDENT stu={10,{90,90,0}};
+
+
+
+// 재정의 typedef를 사용해 간결한 코드를 작성하는 예제. -> 구조체 정의와 동시에 재정의 사용, 또는 하단에 작성하는 방법중 택일하여 사용하도록 한다.
+
+
+return 0;
+
+}
+
+
+```
+
+</div>
+</details>
+
+
+---
+
+
+<details>
+<summary> 예제1-10,11,12,13,14</summary>
+<div markdown="1">
+
+```
+#include<stdio.h>
+
+struct student{
+  char no[10];
+  char name[20];
+  double math;
+  double english;
+  double total;
+
+};
+
+typedef struct student STU;
+
+int main(){
+
+STU s1={"1","chan",90,90,0};
+STU s2={"2","lostbeef",920,920,0};
+STU s3={"3","goats",190,390,0};
+
+printf("%s %d",s1.name,s1.math);// .연산자를 사용하여 구조체 멤버 배열에 접근 가능하다.
+
+STU st[3]={
+{"1","chan",90,90,0},
+{"1","chan",90,90,0},
+{"1","chan",90,90,0}
+};
+// 구조체 변수로 배열을 사용하는 방법이다.
+//접근은 배열과 동일하게 인덱스나 0번주소+숫자로 접근한다.
+
+
+//단 배열멤버를 초기화 할때 선언 이후 초기화를 하거나 재입력시
+// st[0].no="?"; 처럼 단순한 변수에 대입하듯 사용하면 안된다. 배열시작주소= 배열이름인데 문자열을 넣으려하면 당연히 에러가 난다. 이 때는 strcpy를 사용해 넣는것이 편하다.
+// strcpy(st[0].no,"11112");
+
+return;
+}
+
+```
+
+</div>
+</details>
+
+---
+
+## 중요 멤버변수로 포인터 사용, 구조체변수로 포인터사용, 자기참조 구조체와 외부참조 구조체 파트 시작.
+
+
+
+
 
 
 

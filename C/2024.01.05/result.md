@@ -264,9 +264,54 @@ return;
 ---
 
 ## 중요 멤버변수로 포인터 사용, 구조체변수로 포인터사용, 자기참조 구조체와 외부참조 구조체 파트 시작.
+---
+
+<details>
+<summary> 1-15,16</summary>
+<div markdown="1">
+
+```
+struct point {
+int* x;
+int* y;
+};
+
+struct point2{
+int* x;
+int** y;
+};
 
 
+int main(){
+struct point p1;
 
+struct point2 p2;
+
+int num1=4;
+int num2=5;
+
+
+p1.x= &num1;
+p1.y= &num2;
+
+p2.x=&num1;
+p2.y=&p1.x;// &(&num1)==4 성립.
+
+
+printf("%d %d \n",*p1.x,*p1.y);
+// 연산자의 우선순의가 .이 높기 때문에 p1.y=&num2 , *(&num2) , 서로 상쇄됨*&, num2=p1.y성립 
+
+}
+
+```
+
+</div>
+</details>
+
+---
+
+
+//17예제는 구조체변수 주소랑 멤버변수 1번째꺼 주소랑 같다는 소리.<배열이랑 같다>
 
 
 
